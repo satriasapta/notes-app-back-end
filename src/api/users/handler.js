@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-underscore-dangle */
 const ClientError = require('../../exceptions/ClientError');
 
 class UsersHandler {
@@ -77,6 +78,6 @@ class UsersHandler {
       return response;
     }
   }
-
-  
 }
+
+module.exports = UsersHandler;
