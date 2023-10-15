@@ -3,9 +3,9 @@
 const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
 const bcrypt = require('bcrypt');
-const { InvariantError } = require('../../exceptions/InvariantError');
-const { NotFoundError } = require('../../exceptions/NotFoundError');
-const { AuthenticationError } = require('../../exceptions/AuthenticationError');
+const InvariantError = require('../../exceptions/InvariantError');
+const NotFoundError = require('../../exceptions/NotFoundError');
+const AuthenticationError = require('../../exceptions/AuthenticationError');
 
 class UsersService {
   constructor() {
@@ -15,7 +15,7 @@ class UsersService {
   async addUser({ username, password, fullname }) {
     // TODO: Verifikasi username, pastikan belum terdaftar.
     // TODO: Bila verifikasi lolos, maka masukkan user baru ke database.
-    await this.verifyUserCredential({ username });
+    await this.verifyNewUsername(username);
 
     const id = `user-${nanoid(16)}`;
     const hashedPassword = await bcrypt.hash(password, 10);
