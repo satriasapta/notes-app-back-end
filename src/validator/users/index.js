@@ -1,6 +1,5 @@
-/* eslint-disable linebreak-style */
 const InvariantError = require('../../exceptions/InvariantError');
-const UserPayloadSchema = require('./schema');
+const { UserPayloadSchema } = require('./schema');
 
 const UsersValidator = {
   validateUserPayload: (payload) => {
@@ -10,7 +9,6 @@ const UsersValidator = {
       throw new InvariantError(validationResult.error.message);
     }
   },
-
 };
 
 module.exports = UsersValidator;

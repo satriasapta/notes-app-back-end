@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable no-underscore-dangle */
 const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
@@ -13,10 +12,7 @@ class UsersService {
   }
 
   async addUser({ username, password, fullname }) {
-    // TODO: Verifikasi username, pastikan belum terdaftar.
-    // TODO: Bila verifikasi lolos, maka masukkan user baru ke database.
     await this.verifyNewUsername(username);
-
     const id = `user-${nanoid(16)}`;
     const hashedPassword = await bcrypt.hash(password, 10);
     const query = {
@@ -29,7 +25,6 @@ class UsersService {
     if (!result.rows.length) {
       throw new InvariantError('User gagal ditambahkan');
     }
-
     return result.rows[0].id;
   }
 
@@ -61,7 +56,7 @@ class UsersService {
     return result.rows[0];
   }
 
-  async verifyUserCredential({ username, password }) {
+  async verifyUserCredential(username, password) {
     const query = {
       text: 'SELECT id, password FROM users WHERE username = $1',
       values: [username],

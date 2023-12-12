@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const Joi = require('joi');
 
 const UserPayloadSchema = Joi.object({
@@ -7,4 +6,4 @@ const UserPayloadSchema = Joi.object({
   fullname: Joi.string().required(),
 });
 
-module.exports = UserPayloadSchema;
+module.exports = { UserPayloadSchema };

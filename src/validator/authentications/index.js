@@ -1,10 +1,9 @@
-/* eslint-disable linebreak-style */
-const InvariantError = require('../../exceptions/InvariantError');
 const {
   PostAuthenticationPayloadSchema,
   PutAuthenticationPayloadSchema,
   DeleteAuthenticationPayloadSchema,
 } = require('./schema');
+const InvariantError = require('../../exceptions/InvariantError');
 
 const AuthenticationsValidator = {
   validatePostAuthenticationPayload: (payload) => {

@@ -1,6 +1,5 @@
-/* eslint-disable linebreak-style */
-const routes = require('./routes');
 const UsersHandler = require('./handler');
+const routes = require('./routes');
 
 module.exports = {
   name: 'users',

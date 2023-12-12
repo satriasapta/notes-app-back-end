@@ -1,11 +1,10 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable no-underscore-dangle */
 const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
 const InvariantError = require('../../exceptions/InvariantError');
-const { mapDBToModel } = require('../../utils');
 const NotFoundError = require('../../exceptions/NotFoundError');
 const AuthorizationError = require('../../exceptions/AuthorizationError');
+const { mapDBToModel } = require('../../utils');
 
 class NotesService {
   constructor() {
@@ -20,7 +19,7 @@ class NotesService {
     const updatedAt = createdAt;
 
     const query = {
-      text: 'INSERT INTO notes VALUES($1, $2, $3, $4, $5, $6) RETURNING id',
+      text: 'INSERT INTO notes VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING id',
       values: [id, title, body, tags, createdAt, updatedAt, owner],
     };
 
@@ -47,11 +46,10 @@ class NotesService {
       text: 'SELECT * FROM notes WHERE id = $1',
       values: [id],
     };
-
     const result = await this._pool.query(query);
 
     if (!result.rows.length) {
-      throw new InvariantError('Catatan tidak ditemukan');
+      throw new NotFoundError('Catatan tidak ditemukan');
     }
 
     return result.rows.map(mapDBToModel)[0];
@@ -67,7 +65,7 @@ class NotesService {
     const result = await this._pool.query(query);
 
     if (!result.rows.length) {
-      throw new InvariantError('Gagal memperbarui catatan. Id tidak ditemukan');
+      throw new NotFoundError('Gagal memperbarui catatan. Id tidak ditemukan');
     }
   }
 
@@ -89,15 +87,11 @@ class NotesService {
       text: 'SELECT * FROM notes WHERE id = $1',
       values: [id],
     };
-
     const result = await this._pool.query(query);
-
     if (!result.rows.length) {
       throw new NotFoundError('Catatan tidak ditemukan');
     }
-
     const note = result.rows[0];
-
     if (note.owner !== owner) {
       throw new AuthorizationError('Anda tidak berhak mengakses resource ini');
     }

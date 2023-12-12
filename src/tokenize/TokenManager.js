@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const Jwt = require('@hapi/jwt');
 const InvariantError = require('../exceptions/InvariantError');
 
@@ -15,6 +14,7 @@ const TokenManager = {
       throw new InvariantError('Refresh token tidak valid');
     }
   },
+
 };
 
 module.exports = TokenManager;
